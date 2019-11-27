@@ -72,6 +72,7 @@ describe('unit::jwt::Jwt', function(){
       await jwt.rotate_promise
       expect(jwt.jwt_sign_secret).to.match(RE_PRIVATE_KEY)
       expect(jwt.jwt_verify_secret).to.match(RE_PUB_KEY)
+      expect(jwt.jwt_public_key).to.equal(jwt.jwt_verify_secret)
     })
 
     it('should fail to use RSA with only private key', async function(){
@@ -92,6 +93,7 @@ describe('unit::jwt::Jwt', function(){
       })
       expect(jwt.jwt_sign_secret).to.match(RE_PRIVATE_KEY)
       expect(jwt.jwt_verify_secret).to.match(RE_PUB_KEY)
+      expect(jwt.jwt_public_key).to.equal(jwt.jwt_verify_secret)
     })
 
     it('should set a default sign option', function(){
