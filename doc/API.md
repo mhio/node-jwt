@@ -9,15 +9,14 @@
         * [.init()](#Jwt+init) ⇒ <code>Promise.&lt;undefined&gt;</code>
         * [.setJwtVerifyDefaultOption(name, value)](#Jwt+setJwtVerifyDefaultOption)
         * [.setJwtSignDefaultOption(name, value)](#Jwt+setJwtSignDefaultOption)
-        * [.jwtSign(data, options)](#Jwt+jwtSign)
-        * [.jwtVerify(token, options)](#Jwt+jwtVerify)
+        * [.sign(data, options)](#Jwt+sign)
+        * [.verify(token, options)](#Jwt+verify)
         * [.koaVerifyJwtMiddleware(ctx, next)](#Jwt+koaVerifyJwtMiddleware)
         * [.koaMiddleware()](#Jwt+koaMiddleware) ⇒ <code>function</code>
-        * [.rotateRsaKeyPair()](#Jwt+rotateRsaKeyPair) ⇒ <code>array.&lt;{private\_key: String, public\_key: String}&gt;</code>
+        * [.rotateRsaKeyPair()](#Jwt+rotateRsaKeyPair) ⇒ <code>array.&lt;{public\_key: String, private\_key: String}&gt;</code>
     * _static_
         * [.getJwtTokenFromKoaContext(context)](#Jwt.getJwtTokenFromKoaContext) ⇒ <code>string</code>
         * [.generateRsaKeyPair()](#Jwt.generateRsaKeyPair) ⇒ <code>Promise.&lt;array&gt;</code>
-        * [.koaMiddleware()](#Jwt.koaMiddleware) ⇒ <code>function</code>
 
 
 * * *
@@ -53,7 +52,8 @@
 <a name="Jwt+setJwtVerifyDefaultOption"></a>
 
 ### jwt.setJwtVerifyDefaultOption(name, value)
-<p>Set a defailt options for the nodewebtoken <code>.verify</code> call</p>
+<p>Set a defailt options for the nodewebtoken <code>.verify</code> call
+https://github.com/auth0/node-jsonwebtoken</p>
 
 **Kind**: instance method of [<code>Jwt</code>](#Jwt)  
 
@@ -68,7 +68,8 @@
 <a name="Jwt+setJwtSignDefaultOption"></a>
 
 ### jwt.setJwtSignDefaultOption(name, value)
-<p>Set a defailt options for the nodewebtoken <code>.sign</code> call</p>
+<p>Set a defailt options for the nodewebtoken <code>.sign</code> call
+https://github.com/auth0/node-jsonwebtoken</p>
 
 **Kind**: instance method of [<code>Jwt</code>](#Jwt)  
 
@@ -80,10 +81,10 @@
 
 * * *
 
-<a name="Jwt+jwtSign"></a>
+<a name="Jwt+sign"></a>
 
-### jwt.jwtSign(data, options)
-<p>Promise to creata a jwt token for some data</p>
+### jwt.sign(data, options)
+<p>Promise to create a JWT for some data</p>
 
 **Kind**: instance method of [<code>Jwt</code>](#Jwt)  
 
@@ -95,10 +96,10 @@
 
 * * *
 
-<a name="Jwt+jwtVerify"></a>
+<a name="Jwt+verify"></a>
 
-### jwt.jwtVerify(token, options)
-<p>Promise to decode a jwt token for some data</p>
+### jwt.verify(token, options)
+<p>Promise to decode a signed JWT token</p>
 
 **Kind**: instance method of [<code>Jwt</code>](#Jwt)  
 
@@ -114,8 +115,8 @@
 
 ### jwt.koaVerifyJwtMiddleware(ctx, next)
 <p>This is middleware for use in Koa
-Stores verified/decoded token data in <code>context.state.token</code>
-Also keeps the original in <code>context.state.token_string</code>
+The verified/decoded token data is stored in <code>context.state.token</code>
+The original token string is in <code>context.state.token_string</code>
 The function needs to be bound to <code>Jwt</code> class instance.</p>
 
 **Kind**: instance method of [<code>Jwt</code>](#Jwt)  
@@ -123,7 +124,7 @@ The function needs to be bound to <code>Jwt</code> class instance.</p>
 | Param | Type | Description |
 | --- | --- | --- |
 | ctx | <code>object</code> | <p>Koa context object</p> |
-| next | <code>\*</code> | <p>Koa <code>next</code> promise</p> |
+| next | <code>function</code> | <p>Koa <code>next</code> promise</p> |
 
 **Example**  
 ```js
@@ -148,12 +149,12 @@ app.use(jwtinstance.koaMiddleware())
 
 <a name="Jwt+rotateRsaKeyPair"></a>
 
-### jwt.rotateRsaKeyPair() ⇒ <code>array.&lt;{private\_key: String, public\_key: String}&gt;</code>
+### jwt.rotateRsaKeyPair() ⇒ <code>array.&lt;{public\_key: String, private\_key: String}&gt;</code>
 <p>Creates a new ephemeral JWT key pair.
 Maybe store the old one's for a bit so people don't get booted.</p>
 
 **Kind**: instance method of [<code>Jwt</code>](#Jwt)  
-**Returns**: <code>array.&lt;{private\_key: String, public\_key: String}&gt;</code> - <p>Array of private and public RSA key</p>  
+**Returns**: <code>array.&lt;{public\_key: String, private\_key: String}&gt;</code> - <p>Array of private and public RSA key</p>  
 
 * * *
 
@@ -181,17 +182,6 @@ Maybe store the old one's for a bit so people don't get booted.</p>
 
 **Kind**: static method of [<code>Jwt</code>](#Jwt)  
 **Returns**: <code>Promise.&lt;array&gt;</code> - <p>A promise for an array of [public_key, private_key]</p>  
-
-* * *
-
-<a name="Jwt.koaMiddleware"></a>
-
-### Jwt.koaMiddleware() ⇒ <code>function</code>
-<p>Helper if you just want to <code>app.use(Jwt.koaMiddleware(options))</code>
-See .constructor() options</p>
-
-**Kind**: static method of [<code>Jwt</code>](#Jwt)  
-**Returns**: <code>function</code> - <p>Koa middleware function to verify JWT header</p>  
 
 * * *
 
