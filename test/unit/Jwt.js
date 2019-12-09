@@ -28,7 +28,7 @@ describe('unit::jwt::Jwt', function(){
     
     let jwt = null
     
-    before(function(){
+    beforeEach(function(){
       jwt = new Jwt({ jwt_sign_secret: 'test' })
     })
     
@@ -105,6 +105,27 @@ describe('unit::jwt::Jwt', function(){
       jwt.setJwtVerifyDefaultOption('maxAge', '2 days')
       expect(jwt.default_jwt_verify_options).to.containSubset({maxAge: '2 days'})
     })
+
+    it('should set a default verify option', function(){
+      jwt.setJwtVerifyDefaultOption('maxAge', '2 days')
+      expect(jwt.default_jwt_verify_options).to.containSubset({maxAge: '2 days'})
+    })
+
+    it('should produce a WebException for an invalid signature', async function(){
+      const other_jwt = new Jwt({ jwt_sign_secret: 'othertest' })
+      const bad_token = await other_jwt.sign({ ok: true })
+      try {
+        await jwt.verify(bad_token)
+        expect.fail()
+      }
+      catch (error) {
+        expect(error.name).to.equal('WebException')
+        expect(error.message).to.equal('Authentication Error')
+        expect(error.code).to.equal('invalid_signature')
+        expect(error.error).to.be.ok
+      }
+    })
+
   })
 
 })
