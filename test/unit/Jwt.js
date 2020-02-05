@@ -37,6 +37,12 @@ describe('unit::jwt::Jwt', function(){
       expect( mw ).to.be.an.instanceOf(Function)
     })
     
+    it('should return a function for .koaMiddleware', function () {
+      jwt = new Jwt({ jwt_sign_secret: 'test', koa_cookie: 'download' })
+      const mw = jwt.koaCookieMiddleware()
+      expect(mw).to.be.an.instanceOf(Function)
+    })
+
     it('should sign a token', async function(){
       const res = await jwt.sign({ bool: true })
       expect(res).to.match(RE_JWT_TOKEN)
