@@ -136,6 +136,30 @@ describe('unit::jwt::Jwt', function(){
       }
     })
 
+    it('should fail to get a jwt token', function(){
+      jwt = new Jwt({ koa_cookie: 'test', jwt_sign_secret: 'test' })
+      const fn = () => jwt.getJwtTokenFromKoaContextCookie()
+      expect(fn).to.throw('No context')
+    })
+
+    it('should fail to get a jwt token', function(){
+      jwt = new Jwt({ koa_cookie: 'test', jwt_sign_secret: 'test' })
+      const fn = () => jwt.getJwtTokenFromKoaContextCookie({})
+      expect(fn).to.throw('No cookies in context')
+    })
+    
+    it('should fail to get a jwt token', function(){
+      jwt = new Jwt({ koa_cookie: 'test', jwt_sign_secret: 'test' })
+      const fn = () => jwt.getJwtTokenFromKoaContextCookie({
+        cookies: { get(){ return undefined }}
+      })
+      expect(fn).to.throw('Authentication Error')
+    })
+    
+    it('should get a jwt token from cookie header "test"', function(){
+      jwt = new Jwt({ koa_cookie: 'test', jwt_sign_secret: 'test' })
+      expect( jwt.getJwtTokenFromKoaContextCookie({ cookies: { get(){ return 'testthing' }}})).to.equal('testthing')
+    })
   })
 
 })
