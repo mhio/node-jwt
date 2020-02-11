@@ -156,11 +156,15 @@ app.use(jwtinstance.koaMiddleware())
 <a name="Jwt+rotateRsaKeyPair"></a>
 
 ### jwt.rotateRsaKeyPair() ⇒ <code>array.&lt;{public\_key: String, private\_key: String}&gt;</code>
-<p>Creates a new ephemeral JWT key pair.
+<p>Creates a new JWT key pair, can auto generate, use params or read from file.
 Maybe store the old one's for a bit so people don't get booted.</p>
 
 **Kind**: instance method of [<code>Jwt</code>](#Jwt)  
 **Returns**: <code>array.&lt;{public\_key: String, private\_key: String}&gt;</code> - <p>Array of private and public RSA key</p>  
+**Params**: <code>object</code> options                     - Options object  
+**Params**: <code>boolean</code> options.discard            - Discard old keys  
+**Params**: <code>string</code> options.public_key          - New public key  
+**Params**: <code>string</code> options.private_key         - New private key  
 
 * * *
 
