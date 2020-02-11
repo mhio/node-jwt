@@ -72,6 +72,10 @@ describe('unit::jwt::Jwt', function(){
       const fn = () => new Jwt({ jwt_algorithm: 'none' })
       expect(fn).to.throw('Algorithm not supported')
     })
+  
+    it('should set pubkey to false when not using one', function(){
+      expect(jwt.jwt_public_key).to.equal(false)
+    })
 
     it('should generate an rsa key', async function(){
       jwt = new Jwt({ jwt_algorithm: 'RS256' })
