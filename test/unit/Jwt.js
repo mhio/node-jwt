@@ -1,5 +1,6 @@
 /* global expect */
 const path = require('path')
+const fs = require('fs')
 const { Jwt } = require('../../lib/Jwt')
 const {
   RE_PUB_KEY,
@@ -104,6 +105,31 @@ describe('unit::jwt::Jwt', function(){
       expect(jwt.jwt_sign_secret).to.match(RE_PRIVATE_KEY)
       expect(jwt.jwt_verify_secret).to.match(RE_PUB_KEY)
       expect(jwt.jwt_public_key).to.equal(jwt.jwt_verify_secret)
+    })
+
+    it('should rotate while using a public/private key file', async function(){
+      jwt = new Jwt({
+        jwt_algorithm: 'RS256',
+        jwt_private_key_path: path.join(__dirname,'..','fixture','jwtRS256.key'),
+        jwt_public_key_path: path.join(__dirname, '..', 'fixture','jwtRS256.key.pub'),
+      })
+      const res = await jwt.rotateRsaKeyPair()
+      expect(res).to.eql([jwt.jwt_verify_secret, jwt.jwt_sign_secret])
+    })
+
+    it('should rotate while using a public/private key file', async function(){
+      const private_key = fs.readFileSync(path.join(__dirname, '..', 'fixture', 'jwtRS256.key'))
+      const public_key = fs.readFileSync(path.join(__dirname, '..', 'fixture', 'jwtRS256.key.pub'))
+      jwt = new Jwt({
+        jwt_algorithm: 'RS256',
+        jwt_private_key: private_key.toString(),
+        jwt_public_key: public_key.toString(),
+      })
+      const res = await jwt.rotateRsaKeyPair({
+        private_key: private_key.toString(),
+        public_key: public_key.toString(),
+      })
+      expect(res).to.eql([ public_key.toString(), private_key.toString() ])
     })
 
     it('should set a default sign option', function(){
