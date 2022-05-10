@@ -9,7 +9,6 @@
   "private": false,
   "dependencies": {
     "@mhio/exception": "~0.2.1",
-    "bluebird": "^3.7.1",
     "debug": "^4.1.1",
     "jsonwebtoken": "^8.5.1"
   },
@@ -30,16 +29,22 @@
     "release:patch": "set -uex; git pull; rm -rf node_modules; yarn; yarn run test:coverage; yarn run test:lint; yarn run build:doc; npm version patch; git push; npm publish --access public; git push --tags"
   },
   "devDependencies": {
-    "@koa/router": "^8.0.2",
-    "chai": "^4.2.0",
+    "@koa/router": "^10.1.1",
+    "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
     "chai-subset": "^1.6.0",
-    "eslint": "^6.6.0",
+    "eslint": "^8.15.0",
     "jsdoc": "^3.6.3",
-    "jsdoc-to-markdown": "^5.0.2",
-    "koa": "^2.11.0",
-    "mocha": "^6.2.2",
-    "nyc": "^14.1.1",
-    "supertest": "^4.0.2"
+    "jsdoc-to-markdown": "^7.1.1",
+    "koa": "2.13.4",
+    "mocha": "10.0.0",
+    "nyc": "^15.1.0",
+    "supertest": "^6.2.3"
+  },
+  "mocha": {
+    "require": [
+      "./test/mocha-setup.js"
+    ],
+    "ui": "bdd"
   }
 }
