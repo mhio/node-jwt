@@ -1,7 +1,7 @@
-Jwt - @mhio/jwt
+JWT - @mhio/jwt
 ----------
 
-Do Jwt things for koa
+Do JWT things for koa
 
 ## Install
 
@@ -44,3 +44,10 @@ app.use(router.routes())
 
 
 ```
+
+## Links
+
+https://github.com/mhio/node-jwt
+
+https://www.npmjs.com/package/@mhio/jwt
+

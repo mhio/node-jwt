@@ -1,5 +1,5 @@
-/* global expect */
-const { Jwt, WebException } = require('../../')
+import { expect } from 'chai'
+import { Jwt, WebException } from '../../src/index.js'
 
 describe('unit::jwt::module', function(){
 

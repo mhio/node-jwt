@@ -1,12 +1,12 @@
 /* global expect */
-const path = require('path')
-const fs = require('fs')
-const { Jwt } = require('../../lib/Jwt')
-const {
+import path from 'path'
+import fs from 'fs'
+import { Jwt } from '../../lib/Jwt.js'
+import {
   RE_PUB_KEY,
   RE_PRIVATE_KEY,
   RE_JWT_TOKEN,
-} = require('../fixture/regex')
+} from '../fixture/regex.js'
 
 describe('unit::jwt::Jwt', function(){
 

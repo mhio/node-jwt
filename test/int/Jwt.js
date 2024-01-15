@@ -1,12 +1,11 @@
-/* global expect */
+import { expect } from 'chai'
+import koa from 'koa'
+import supertest from 'supertest'
+import { Jwt } from '../../index.js'
 
-const koa = require('koa')
-const supertest = require('supertest')
-const { Jwt } = require('../../')
-
-const {
+import {
   RE_JWT_TOKEN,
-} = require('../fixture/regex')
+} from '../fixture/regex.js'
 
 describe('int::jwt::Jwt', function(){
 
