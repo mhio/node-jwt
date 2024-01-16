@@ -23,7 +23,7 @@
     "test:int": "mocha test/unit",
     "test:built": "set -uex; yarn run build; mocha test/built",
     "test:lint": "eslint src/ test/",
-    "test:coverage": "nyc _mocha test/unit test/int && nyc report -r html && nyc check-coverage",
+    "test:coverage": "c8 -r html --check-coverage _mocha test/unit test/int",
     "test:watch": "yarn run watch 'mocha --bail test/unit test/int || exit 1'",
     "watch": "nodemon -i doc/ -i test/output -x",
     "release:test": "set -uex; yarn test; npm version prerelease; npm publish --access public --tag testing",
@@ -31,15 +31,14 @@
   },
   "devDependencies": {
     "@koa/router": "^12",
+    "c8": "^9.1.0",
     "chai": "^5.0.0",
-    "chai-as-promised": "^7.1.1",
     "chai-subset": "^1.6.0",
     "eslint": "^8.56.0",
     "jsdoc": "~4.0.2",
     "jsdoc-to-markdown": "~8.0.0",
     "koa": "~2.15",
     "mocha": "^10.2.0",
-    "nyc": "^15.1.0",
     "supertest": "^6.3.4"
   },
   "mocha": {
