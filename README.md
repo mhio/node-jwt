@@ -12,8 +12,6 @@ npm install @mhio/jwt
 
 ## Usage
 
-[API Docs](doc/API.md)
-
 ```
 import { Jwt } from '@mhio/jwt'
 

@@ -18,6 +18,7 @@ export class Jwt {
   static get environment_var_name(){
     return environment_var_name
   }
+
   /**
    * Get a JWT token from Koa headers
    * 
