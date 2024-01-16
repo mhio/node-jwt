@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import koa from 'koa'
 import supertest from 'supertest'
-import { Jwt } from '../../index.js'
+import { Jwt } from '../../src/index.js'
 
 import {
   RE_JWT_TOKEN,

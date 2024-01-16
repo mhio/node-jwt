@@ -1,9 +1,11 @@
 import crypto from 'node:crypto'
+import { readFileSync } from 'node:fs'
+import { readFile as fsReadFile } from 'node:fs/promises'
 import jwt from 'jsonwebtoken'
 import { Exception, WebException } from '@mhio/exception'
 import debugr from 'debug'
 
-export { WebException } from '@mhio/exception'
+export { Exception, WebException } from '@mhio/exception'
 
 const debug = (debugr('mh:jwt:Jwt').enabled)
   ? debugr('mh:jwt:Jwt')
@@ -150,8 +152,8 @@ export class Jwt {
     else if (['RS256', 'RS384', 'RS512'].includes(this.jwt_algorithm) ) {
       debug('using jwt algorithm %s', this.jwt_algorithm)
       if (this.jwt_private_key_path || this.jwt_public_key_path) {
-        this.jwt_sign_secret = fs.readFileSync(this.jwt_private_key_path).toString()
-        this.jwt_verify_secret = fs.readFileSync(this.jwt_public_key_path).toString()
+        this.jwt_sign_secret = readFileSync(this.jwt_private_key_path).toString()
+        this.jwt_verify_secret = readFileSync(this.jwt_public_key_path).toString()
         this.jwt_public_key = this.jwt_verify_secret
       }
       if (!this.jwt_sign_secret && !this.jwt_verify_secret ) {
@@ -305,8 +307,8 @@ export class Jwt {
     }
     // If we are using files
     else if (this.jwt_private_key_path || this.jwt_public_key_path) {
-      this.jwt_sign_secret = await fsp.readFile(this.jwt_private_key_path).toString()
-      this.jwt_verify_secret = await fsp.readFile(this.jwt_public_key_path).toString()
+      this.jwt_sign_secret = await fsReadFile(this.jwt_private_key_path).toString()
+      this.jwt_verify_secret = await fsReadFile(this.jwt_public_key_path).toString()
       this.jwt_public_key = this.jwt_verify_secret
     }
     else {

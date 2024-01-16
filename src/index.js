@@ -1,1 +1,1 @@
-export { Jwt, WebException, Exception } from  './Jwt'
+export { Jwt, WebException, Exception } from  './Jwt.js'
