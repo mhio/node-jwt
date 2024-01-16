@@ -1,9 +1,9 @@
 parserOptions:
-  ecmaVersion: 8
+  sourceType: module
 env:
   node: true
   mocha: true
-  es6: true
+  es2022: true
 extends: eslint:recommended
 rules:
   quotes: [ 1, "single" ]
