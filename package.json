@@ -1,6 +1,6 @@
 {
   "name": "@mhio/jwt",
-  "version": "0.6.0-0",
+  "version": "0.6.0",
   "description": "Do JWT things for Koa",
   "main": "src/index.js",
   "author": "mhio",
